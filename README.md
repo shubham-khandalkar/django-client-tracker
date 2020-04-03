@@ -25,3 +25,8 @@ the script pings the server to inform that the client is still on the site.
    
    <script src="{% static 'js/tracer.js' %}"></script>
 - Start the development server and visit http://127.0.0.1:8000/. 
+
+## Known Problems
+
+- As of now the data is not represented in any format, it is only saved in database.
+- There is an issue with logging (inside views.py) which was identified when it was put in pythonanywhere.com. Logging was removed from it since. 
