@@ -9,7 +9,7 @@ logging.config.dictConfig({
             'level': 'INFO',
             'class': 'logging.FileHandler',
             # Modify file location
-            'filename': 'D:/Work/Study/Python/cookie-eater/baseproject/logs/ticker.log'
+            'filename': '/logs/ticker.log'
         }
     },
     'loggers': {
