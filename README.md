@@ -1,8 +1,10 @@
 # Introduction
 
 Client Tracker is a Django app to keep track of clients visiting your website. 
-Client IP, and location is fetched using a client-side script. Every 10 minutes
-the script pings the server to inform that the client is still on the site.
+Client IP, and location is fetched using a client-side script. It keeps track of
+how long users stay on your site. Users don't need to login on your site for this
+to work. Please make sure that you inform the users that the site uses cookies as
+it is required for this application.
 
 ## Prerequisites
 
