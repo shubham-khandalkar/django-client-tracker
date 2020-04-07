@@ -13,8 +13,13 @@ class ClientTrace(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
 
+    def __str__(self):
+        return 'Client from ' + str(self.city) + ', ' + str(self.region) + ', ' + str(self.country)
 
 class LoginTimes(models.Model):
+    class Meta:
+        verbose_name_plural = "login times"
+
     client = models.ForeignKey(ClientTrace, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
@@ -37,4 +42,5 @@ class LoginTimes(models.Model):
         super(LoginTimes, self).save(*args, **kwargs)
 
     def __str__(self):
-        return '"' + self.client.sessionID + '": ' + str(self.start_time) + ' -> ' + str(self.end_time) + ''
+        return '"' + self.client.sessionID[:12] + '": ' + self.start_time.strftime("%Y-%m-%d %H:%M") + ' -> ' +\
+               self.end_time.strftime("%Y-%m-%d %H:%M") + ''
