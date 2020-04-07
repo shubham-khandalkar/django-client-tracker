@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="django-client-tracker",
-    version="0.0.1",
+    version="0.0.2",
     author="Shubham Khandalkar",
     author_email="shubham.sk473@gmail.com",
     description="Client Tracker is a Django app to keep track of clients visiting your website",
