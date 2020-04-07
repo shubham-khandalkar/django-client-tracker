@@ -1,5 +1,13 @@
 var debug = true;
 var information;
+
+// this is the frequency (in minutes) at which the server will be pinged.
+// the frequency is configured by setting a new variable "CLIENT_TRACKER_FREQUENCY"
+// in project's settings.py file. If unset, default value will be 10.
+// value for "CLIENT_TRACKER_FREQUENCY" should be an integer between value 1 and
+// 24 * 60 = 1440.
+var frequency = 10;
+var ticker_handler;
 // modify this if you want specific url
 var ticker_url = document.location.origin + '/ticker/';
 
@@ -82,7 +90,34 @@ function ticker(){
     if(debug)
     console.log('tick');
     $.getJSON(ticker_url, function(data) {});
-    setTimeout(ticker, 10 * 60 * 1000);
+    ticker_handler = setTimeout(ticker, frequency * 60 * 1000);
+    $.getJSON(ticker_url + 'frequency/', function(data) {
+        if(isNaN(data))
+        {
+            frequency = 10;
+        }
+        else
+        {
+            try
+            {
+                new_frequency = parseInt(data);
+                if(new_frequency != frequency)
+                {
+                    frequency = parseInt(data);
+                    clearTimeout(ticker_handler);
+                    ticker_handler = setTimeout(ticker, frequency * 60 * 1000);
+                    if(debug)
+                    {
+                        console.log('timeout reset to ' + frequency);
+                    }
+                }
+            }
+            catch(err)
+            {
+                frequency = 10;
+            }
+        }
+    });
 }
 
 // time out is required because fetching client information could take some time

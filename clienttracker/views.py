@@ -1,6 +1,7 @@
 from .models import ClientTrace, LoginTimes
 from django.http import HttpResponse
 import logging
+from django.conf import settings
 
 logging.config.dictConfig({
     'version': 1,
@@ -54,3 +55,16 @@ def ticker(request):
         print('time to log it')
         logger.info(str(logintime))
     return HttpResponse('Saved')
+
+
+def frequency(request):
+    if hasattr(settings, 'CLIENT_TRACKER_FREQUENCY') and isinstance(settings.CLIENT_TRACKER_FREQUENCY, int):
+        freq = settings.CLIENT_TRACKER_FREQUENCY
+        if freq < 0:
+            return HttpResponse('1')
+        elif freq > 24 * 60:
+            return HttpResponse('1440')
+        else:
+            return HttpResponse(str(freq))
+    else:
+        return HttpResponse('10')
